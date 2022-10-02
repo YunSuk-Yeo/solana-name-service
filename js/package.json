@@ -1,0 +1,57 @@
+{
+  "name": "solana-name-service-example",
+  "version": "0.1.4",
+  "description": "Solana Name Service JavaScript API",
+  "license": "MIT",
+  "author": "YunYeo <sw.yunsuk@gmail.com>",
+  "homepage": "https://github.com/YunSuk-Yeo/solana-name-service",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YunSuk-Yeo/solana-name-service"
+  },
+  "bugs": {
+    "url": "https://github.com/YunSuk-Yeo/solana-name-service/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json && tsc-esm -p tsconfig.json && tsc -p tsconfig.cjs.json",
+    "postbuild": "echo '{\"type\":\"commonjs\"}' > dist/cjs/package.json && echo '{\"type\":\"module\"}' > dist/esm/package.json",
+    "test": "ts-node test/main.ts",
+    "start-with-test-validator": "start-server-and-test 'solana-test-validator --bpf-program namesLPneVptA9Z5rqUDD9tMTWEJwofgaYwp8cawRkX ../program/target/deploy/name_service.so --reset --quiet' http://localhost:8899/health test",
+    "lint": "npm run pretty && eslint --max-warnings 0 .",
+    "lint:fix": "npm run pretty:fix && eslint . --fix",
+    "build:program": "cargo build-bpf --manifest-path ../program/Cargo.toml",
+    "pretty": "prettier --check '{,???/**/}*.ts'",
+    "pretty:fix": "prettier --write '{,???/**/}*.ts'"
+  },
+  "prettier": {
+    "singleQuote": true
+  },
+  "devDependencies": {
+    "@tsconfig/recommended": "^1.0.1",
+    "@types/node": "^14.14.20",
+    "@typescript-eslint/eslint-plugin": "^4.0.1",
+    "@typescript-eslint/parser": "^4.0.1",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.8.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-functional": "^3.0.2",
+    "eslint-plugin-import": "^2.22.0",
+    "prettier": "^2.2.1",
+    "ts-node": "^9.1.1",
+    "typedoc": "^0.22.11",
+    "typescript": "^4.1.3",
+    "start-server-and-test": "^1.11.6"
+  },
+  "dependencies": {
+    "@solana/spl-token": "0.1.4",
+    "@solana/web3.js": "^1.11.0",
+    "bn.js": "^5.1.3",
+    "borsh": "^0.4.0"
+  }
+}
